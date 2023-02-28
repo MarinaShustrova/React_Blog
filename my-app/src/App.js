@@ -1,12 +1,17 @@
 import React, { useState } from 'react';
-import Counter  from './components/Counter';
+import PostItem from './components/PostItem';
+// import Counter  from './components/Counter';
+import './styles/App.css'
 
 function App() {
- const[value, setValue] = useState('text in input');
+
   
   return (
     <div className="App">
-  <Counter  />
+ 
+     <PostItem  post={{id: 1, title: 'JavaScript', body: 'Description'}}/>
+     <PostItem  post={{id: 2, title: 'React', body: 'Description'}}/>
+     <PostItem  post={{id: 3, title: 'Vue', body: 'Description'}}/>
     </div>
   );
 }
