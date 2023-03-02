@@ -17,13 +17,14 @@ function App() {
 
 
  
-  const [ title, setTitle] = useState('');
-  const bodyInputRef = useRef();
+  const [ post, setPost] = useState({title: '', body: ''});
+  
 
   const addNewPost = (e) => {
     e.preventDefault();
-    console.log(title);
-    console.log(bodyInputRef.current.value);
+  
+ setPosts([...posts, {...post, id: Date.now()}])
+setPost({title:'', body:''})
 
   }
   return (
@@ -31,8 +32,8 @@ function App() {
     <form>
     {/* //todo управляемый инпут */}
       <MyInput
-      value={title}
-      onChange={e=>setTitle(e.target.value)}
+      value={post.title}
+      onChange={e=>setPost({...post, title: e.target.value})}
        type='text'
         placeholder='Название поста'
 
@@ -40,7 +41,8 @@ function App() {
 
 {/* //todo hook useRef неуправляемый инпут обращаемся к элементу в дом и забираем его вэлью   */}
       <MyInput
-      ref={bodyInputRef}
+      value={post.body}
+      onChange={e=>setPost({...post, body: e.target.valu})}
        type='text'
         placeholder='Описание поста'
 
@@ -53,3 +55,4 @@ function App() {
 }
 
 export default App;
+
