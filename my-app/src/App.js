@@ -1,55 +1,35 @@
 /* eslint-disable react/jsx-no-comment-textnodes */
-import React, { useState, useRef } from 'react';
+import React, {useState} from 'react';
 // import PostItem from './components/PostItem';
 // import Counter  from './components/Counter';
 import './styles/App.css'
 import PostList from './components/PostList';
-import MyButton from './components/UI/button/MyButton'
-import MyInput from './components/UI/input/MyInput'
+// import MyButton from './components/UI/button/MyButton'
+// import MyInput from './components/UI/input/MyInput'
+import PostForm from './components/PostForm';
 
 function App() {
-  const  [posts, setPosts ] = useState([
+ const  [posts, setPosts ] = useState([
     {id: 1, title: 'JavaScript', body: 'Description'},
     {id: 2, title: 'JavaScript', body: 'Description'},
     {id: 3, title: 'JavaScript', body: 'Description'},
   ])
-//todo hook useRef неуправляемый инпут обращаемся к элементу в дом и забираем его вэлью
 
-
- 
-  const [ post, setPost] = useState({title: '', body: ''});
-  
-
-  const addNewPost = (e) => {
-    e.preventDefault();
-  
- setPosts([...posts, {...post, id: Date.now()}])
-setPost({title:'', body:''})
-
+  const createPost = (newPost) => {
+    setPosts([...posts, newPost])
   }
+  const removePost = (post) => {
+    setPosts(posts.filter(p => p.id !== post.id))
+  }
+ 
   return (
     <div className="App">
-    <form>
-    {/* //todo управляемый инпут */}
-      <MyInput
-      value={post.title}
-      onChange={e=>setPost({...post, title: e.target.value})}
-       type='text'
-        placeholder='Название поста'
-
-        />
-
-{/* //todo hook useRef неуправляемый инпут обращаемся к элементу в дом и забираем его вэлью   */}
-      <MyInput
-      value={post.body}
-      onChange={e=>setPost({...post, body: e.target.valu})}
-       type='text'
-        placeholder='Описание поста'
-
-        />
-      <MyButton onClick={addNewPost}>Create post</MyButton>
-    </form>
-    <PostList posts={posts} title='List of posts about JS' />
+  <PostForm  create={createPost}/>
+   {
+    posts.length !== 0
+    ?  <PostList remove={removePost}  posts={posts} title= 'POST ABOUT JS' />
+    :<h1 style={{textAlign: 'center'}}> Posts not found!</h1>
+   }
     </div>
   );
 }
